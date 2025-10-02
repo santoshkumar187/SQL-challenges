@@ -1,0 +1,91 @@
+🔹 1. SQL Clauses (Core Building Blocks)
+SELECT      -- choose columns
+FROM        -- choose table
+WHERE       -- filter rows
+GROUP BY    -- group rows for aggregation
+HAVING      -- filter after grouping
+ORDER BY    -- sort result
+LIMIT / TOP -- limit number of rows (MySQL/SQL Server style)
+OFFSET      -- skip rows (for pagination)
+
+---
+
+🔹 2. SQL Operators
+=      -- equal
+<> or !=  -- not equal
+>      -- greater than
+<      -- less than
+>=     -- greater or equal
+<=     -- less or equal
+BETWEEN ... AND ...  -- range check
+IN (..) -- match against list of values
+NOT IN (..) -- exclude list
+LIKE 'A%'  -- pattern match (wildcards: % = any chars, _ = single char)
+IS NULL    -- check for null values
+IS NOT NULL
+AND, OR, NOT  -- logical operators
+
+---
+
+🔹 3. Aggregate Functions (work on groups of rows)
+COUNT(*)      -- count rows
+SUM(column)   -- sum of values
+AVG(column)   -- average
+MIN(column)   -- minimum
+MAX(column)   -- maximum
+
+---
+
+🔹 4. String Functions
+UPPER(name)       -- convert to uppercase
+LOWER(name)       -- convert to lowercase
+LENGTH(name)      -- length of string (CHAR_LENGTH in some DBs)
+SUBSTRING(name, 1, 3) -- substring (start=1, length=3)
+CONCAT(first, ' ', last) -- join strings
+TRIM(name)        -- remove spaces
+LTRIM(name)       -- remove leading spaces
+RTRIM(name)       -- remove trailing spaces
+REPLACE(name, 'old', 'new') -- replace substring
+
+---
+
+🔹 5. Numeric Functions
+ROUND(salary, 2)  -- round to 2 decimals
+CEIL(4.2)         -- smallest integer >= 4.2 → 5
+FLOOR(4.9)        -- largest integer <= 4.9 → 4
+ABS(-10)          -- absolute value → 10
+MOD(10, 3)        -- remainder → 1
+POWER(2, 3)       -- 2^3 → 8
+
+---
+
+🔹 7. Joins
+INNER JOIN    -- only matching rows from both tables
+LEFT JOIN     -- all from left table, matches from right (NULL if none)
+RIGHT JOIN    -- all from right table
+FULL OUTER JOIN -- all from both (NULLs where no match)
+SELF JOIN     -- table joined with itself
+CROSS JOIN    -- Cartesian product (all combinations)
+
+---
+
+🔹 8. Subqueries
+-- Single-value subquery
+SELECT * FROM Employees
+WHERE salary > (SELECT AVG(salary) FROM Employees);
+
+---
+
+IN subquery
+SELECT * FROM Employees
+WHERE department_id IN (SELECT id FROM Departments WHERE location='NY');
+
+---
+
+🔹 9. Window Functions (Advanced but common in product interviews)
+RANK() OVER (ORDER BY salary DESC)         -- ranking with ties
+DENSE_RANK() OVER (ORDER BY salary DESC)   -- no gaps in rank
+ROW_NUMBER() OVER (ORDER BY salary DESC)   -- unique row numbers
+SUM(salary) OVER (PARTITION BY department) -- running total per department
+
+---
