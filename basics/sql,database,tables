@@ -1,0 +1,47 @@
+What is SQL?
+
+SQL = Structured Query Language
+
+It is used to talk to a database (create, read, update, delete data).
+
+Think of SQL like a language for asking questions from your data.
+
+
+What is a Table?
+
+A table is like an Excel sheet.
+
+It has rows (data records) and columns (fields).
+
+👉 Example:
+
+id  	name	  salary
+1   	Alice	  60000.00
+2	    Bob	    55000.0
+
+
+Row and Column
+
+Row → one complete record (like Alice’s details).
+
+Column → one field of data (like "salary").
+
+
+
+  
+  Here’s the SQL query example:
+
+CREATE TABLE Employees (     ->makes new table name called employee.
+    id INT PRIMARY KEY,      -> id is number, and its unque for each employee
+    name VARCHAR(50),        -> name is text column holds 50 character
+    salary DECIMAL(10,2)     -> salary is number 10 digit max and after decimal (12345678.90)
+);
+
+
+After running this, you now have a table Employees ready to store data like:
+
+id	 name   	salary
+1     sanjay   50000
+2     santosh  40000
+
+
