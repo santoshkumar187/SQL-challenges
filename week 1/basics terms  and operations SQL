@@ -1,0 +1,104 @@
+💡 Query:
+
+INSERT INTO Students (id, name, age)
+VALUES 
+(2, 'Priya', 21),
+(3, 'Amit', 22);
+
+
+| Term                 | Meaning        | What it Does                                  |
+| -------------------- | -------------- | --------------------------------------------- |
+| **INSERT**           | Add new data   | Tells SQL to insert (add) new rows            |
+| **INTO**             | Target table   | Says *which table* to insert into             |
+| **Students**         | Table name     | The table where data will be stored           |
+| **(id, name, age)**  | Column list    | Columns that will receive the values          |
+| **VALUES**           | Data to insert | Introduces actual values to add               |
+| **(2, 'Priya', 21)** | Row 1 data     | Adds a row with id=2, name=Priya, age=21      |
+| **(3, 'Amit', 22)**  | Row 2 data     | Adds another row with id=3, name=Amit, age=22 |
+
+🧩 1️⃣ CREATE TABLE — Make a new table
+
+Creates a structure to store data.
+
+CREATE TABLE Students (
+  id INT,
+  name VARCHAR(50),
+  age INT
+);
+
+
+🧩 2️⃣ INSERT INTO — Add new data
+
+Adds new rows (records) into a table.
+
+INSERT INTO Students (id, name, age)
+VALUES 
+(1, 'Rahul', 20),
+(2, 'Priya', 21);
+
+
+//🧩 3️⃣ SELECT — View data
+
+Fetch or read data from the table.
+
+SELECT * FROM Students;
+
+
+🧩 4️⃣ WHERE — Filter data
+
+Show only rows that match a condition.
+
+SELECT * FROM Students WHERE age > 20;
+
+
+🧩 5️⃣ UPDATE — Change existing data
+
+Modify the data of existing rows.
+
+UPDATE Students
+SET age = 22
+WHERE name = 'Priya';
+
+🧠 Changes Priya’s age to 22.
+
+
+6️⃣ DELETE — Remove data
+
+Delete specific rows from the table.
+
+DELETE FROM Students WHERE id = 1;
+
+
+🧠 Deletes the student whose ID is 1.
+
+
+🧩 7️⃣ ALTER TABLE — Change table structure
+
+Add or remove columns in an existing table.
+
+ALTER TABLE Students ADD email VARCHAR(50);
+
+
+🧠 Adds a new column called email.
+
+🧩 8️⃣ ORDER BY — Sort data
+
+Arrange rows in ascending or descending order.
+
+SELECT * FROM Students ORDER BY age DESC;
+
+
+🧠 Shows students from oldest to youngest.
+
+🧩 9️⃣ DROP TABLE — Delete the whole table
+
+Removes the table and all its data.
+
+DROP TABLE Students;
+
+
+🧠 Deletes the table completely from the database.
+
+
+
+
