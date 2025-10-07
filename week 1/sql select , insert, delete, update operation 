@@ -1,0 +1,127 @@
+---
+
+🧩 Table Example: Students
+
+1️⃣ Create Table
+
+CREATE TABLE Students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    course VARCHAR(50)
+);
+
+💡 This creates a table named Students with 4 columns.
+
+
+---
+
+2️⃣ Insert Data
+
+INSERT INTO Students VALUES
+(1, 'Aarav', 21, 'Computer Science'),
+(2, 'Neha', 22, 'Information Technology'),
+(3, 'Karan', 20, 'Electronics');
+
+💡 Adds 3 records into the table.
+
+
+---
+
+3️⃣ Select Data (Read Operation)
+
+👉 Used to view data from the table.
+
+SELECT * FROM Students;
+
+Output:
+
+id	name	age	course
+
+1	Aarav	21	Computer Science
+2	Neha	22	Information Technology
+3	Karan	20	Electronics
+
+
+
+---
+
+4️⃣ Update Data (Modify Existing Record)
+
+👉 Used to change data in a row.
+
+UPDATE Students
+SET age = 23
+WHERE name = 'Neha';
+
+
+---
+
+5️⃣ Delete Data
+
+👉 Used to remove a record.
+
+DELETE FROM Students
+WHERE id = 3;
+
+After deletion, table becomes 👇
+
+id	name	age	course
+
+1	Aarav	21	Computer Science
+2	Neha	23	Information Technology
+
+
+
+---
+
+6️⃣ Interview Key Points 💬
+
+CREATE → make new table
+
+INSERT → add new record
+
+SELECT → read data
+
+UPDATE → modify data
+
+DELETE → remove data
+
+Always use WHERE with UPDATE / DELETE (to avoid changing all rows)
+
+
+
+Table Name: Students
+
+id	name	age	course
+
+1	Aarav	21	Computer Science
+2	Neha	22	Information Technology
+3	Karan	20	Electronics
+
+
+
+---
+
+🔹 After UPDATE
+
+(Query: UPDATE Students SET age = 23 WHERE name = 'Neha';)
+
+id	name	age	course
+
+1	Aarav	21	Computer Science
+2	Neha	23	Information Technology
+3	Karan	20	Electronics
+
+
+
+---
+
+🔹 After DELETE
+
+(Query: DELETE FROM Students WHERE id = 3;)
+
+id	name	age	course
+
+1	Aarav	21	Computer Science
+2	Neha	23	Information Technology
