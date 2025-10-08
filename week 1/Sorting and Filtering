@@ -1,0 +1,109 @@
+🔍 What is Filtering in SQL?
+Filtering means selecting only the rows that meet certain conditions.
+
+You use the WHERE clause to filter data.
+
+🧪 Example:
+sql
+SELECT * FROM Students
+WHERE Age = 14;
+✅ This will show only students who are 14 years old.
+
+🔢 What is Sorting in SQL?
+Sorting means arranging the rows in a specific order — either ascending (ASC) or descending (DESC).
+
+You use the ORDER BY clause to sort data.
+
+🧪 Example:
+sql
+SELECT * FROM Students
+ORDER BY Grade DESC;
+✅ This will show all students, sorted by their grade from highest to lowest.
+
+🧠 Combine Filtering and Sorting
+You can use both together!
+
+🧪 Example:
+sql
+SELECT * FROM Students
+WHERE Age > 13
+ORDER BY Grade ASC;
+✅ This shows students older than 13, sorted by grade from lowest to highest.
+
+
+
+
+
+*****table example****
+
+
+## 🗂️ Sample Table: `Students`
+
+Imagine we have a table called `Students` with this data:
+
+| StudentID | Name     | Age | Grade |
+|-----------|----------|-----|-------|
+| 1         | Alice    | 14  | 88    |
+| 2         | Bob      | 15  | 92    |
+| 3         | Charlie  | 13  | 75    |
+| 4         | Diana    | 14  | 95    |
+| 5         | Ethan    | 15  | 67    |
+
+---
+
+## 🔍 Filtering Data
+
+**Goal:** Show only students who are **14 years old**
+
+```sql
+SELECT * FROM Students
+WHERE Age = 14;
+```
+
+🧾 **Result:**
+
+| StudentID | Name  | Age | Grade |
+|-----------|-------|-----|-------|
+| 1         | Alice | 14  | 88    |
+| 4         | Diana | 14  | 95    |
+
+---
+
+## 🔢 Sorting Data
+
+**Goal:** Show all students sorted by **Grade** in **descending** order (highest first)
+
+```sql
+SELECT * FROM Students
+ORDER BY Grade DESC;
+```
+
+🧾 **Result:**
+
+| StudentID | Name    | Age | Grade |
+|-----------|---------|-----|-------|
+| 4         | Diana   | 14  | 95    |
+| 2         | Bob     | 15  | 92    |
+| 1         | Alice   | 14  | 88    |
+| 3         | Charlie | 13  | 75    |
+| 5         | Ethan   | 15  | 67    |
+
+---
+
+## 🔍🔢 Filtering + Sorting Together
+
+**Goal:** Show students who are **15 years old**, sorted by **Grade** (highest first)
+
+```sql
+SELECT * FROM Students
+WHERE Age = 15
+ORDER BY Grade DESC;
+```
+
+🧾 **Result:**
+
+| StudentID | Name | Age | Grade |
+|-----------|------|-----|-------|
+| 2         | Bob  | 15  | 92    |
+| 5         | Ethan| 15  | 67    |
+
