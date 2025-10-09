@@ -1,0 +1,84 @@
+1️⃣ Sorting Results (ORDER BY)
+
+The ORDER BY clause is used to sort the result set by one or more columns.
+
+Syntax:
+
+SELECT column1, column2, ...
+FROM table_name
+ORDER BY column1 [ASC|DESC], column2 [ASC|DESC], ...;
+
+
+ASC → Ascending (default)
+
+DESC → Descending
+
+Example 1: Sort by one column
+
+SELECT name, salary
+FROM Employees
+ORDER BY salary DESC;
+
+
+Output:
+
+name	salary
+David	70000
+Bob	60000
+Charlie	55000
+Alice	50000
+Eva	48000
+
+Example 2: Sort by multiple columns
+
+SELECT name, department, salary
+FROM Employees
+ORDER BY department ASC, salary DESC;
+
+2️⃣ Limiting Results (LIMIT / TOP)
+
+Sometimes you only need a subset of rows.
+
+MySQL / PostgreSQL / SQLite
+SELECT name, salary
+FROM Employees
+ORDER BY salary DESC
+LIMIT 3;
+
+
+Output: Top 3 highest-paid employees
+
+SQL Server
+SELECT TOP 3 name, salary
+FROM Employees
+ORDER BY salary DESC;
+
+
+Notes:
+
+LIMIT n → Get first n rows after sorting
+
+OFFSET → Skip first m rows (useful for pagination)
+
+SELECT name, salary
+FROM Employees
+ORDER BY salary DESC
+LIMIT 3 OFFSET 2;  -- Skip top 2, take next 3
+
+3️⃣ Practical Use Cases
+
+Top N salaries / performers
+
+Lowest N values → ORDER BY ASC LIMIT n
+
+Pagination for apps → LIMIT + OFFSET
+
+Ranking with ORDER BY + ROW_NUMBER() in advanced SQL
+
+✅ Interview Tips
+
+Always combine ORDER BY with LIMIT for top-N queries.
+
+Specify ASC/DESC explicitly for clarity.
+
+Mention time complexity if table is large → consider indexes on columns used in ORDER BY.
