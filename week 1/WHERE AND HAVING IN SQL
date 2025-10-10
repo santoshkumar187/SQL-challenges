@@ -1,0 +1,50 @@
+1️⃣ GROUP BY Clause
+
+Purpose:
+GROUP BY is used to group rows that have the same values into summary rows, often used with aggregate functions like
+COUNT(), SUM(), AVG(), MIN(), and MAX().
+
+💻 Example 1: Average Salary by Department
+SELECT department, AVG(salary) AS average_salary
+FROM employees
+GROUP BY department;
+
+
+🧩 Output:
+
+| department | average_salary |
+| ---------- | -------------- |
+| HR         | 45000          |
+| IT         | 72000          |
+| Sales      | 52000          |
+
+💡 Explanation:
+
+Groups employees by department
+
+Calculates the average salary for each group
+
+🔹 2️⃣ HAVING Clause
+
+Purpose:
+HAVING filters the groups created by GROUP BY, just like WHERE filters individual rows.
+
+💻 Example 2: Show departments where average salary > 50,000
+SELECT department, AVG(salary) AS average_salary
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 50000;
+
+
+🧩 Output:
+
+| department | average_salary |
+| ---------- | -------------- |
+| IT         | 72000          |
+| Sales      | 52000          |
+
+⚖️ Difference Between WHERE and HAVING:
+
+Clause	Used For	Works On
+WHERE	Filters rows before grouping	Individual records
+HAVING	Filters after grouping	
