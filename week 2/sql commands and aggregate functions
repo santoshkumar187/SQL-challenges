@@ -1,0 +1,21 @@
+
+sql commands
+
+| Type                                   | Command                                | Description               | Example                              |
+| -------------------------------------- | -------------------------------------- | ------------------------- | ------------------------------------ |
+| **DDL** (Data Definition Language)     | `CREATE`, `ALTER`, `DROP`              | Define database structure | `CREATE TABLE students (...)`        |
+| **DML** (Data Manipulation Language)   | `SELECT`, `INSERT`, `UPDATE`, `DELETE` | Manage table data         | `INSERT INTO students VALUES (...)`  |
+| **DCL** (Data Control Language)        | `GRANT`, `REVOKE`                      | Manage permissions        | `GRANT SELECT ON students TO user1;` |
+| **TCL** (Transaction Control Language) | `COMMIT`, `ROLLBACK`                   | Manage transactions       | `COMMIT;`                            |
+
+  
+
+. Aggregate Functions
+
+| Function  | Description    | Example                          |
+| --------- | -------------- | -------------------------------- |
+| `COUNT()` | Number of rows | `SELECT COUNT(*) FROM students;` |
+| `SUM()`   | Total sum      | `SELECT SUM(age) FROM students;` |
+| `AVG()`   | Average value  | `SELECT AVG(age) FROM students;` |
+| `MAX()`   | Highest value  | `SELECT MAX(age) FROM students;` |
+| `MIN()`   | Lowest value   | `SELECT MIN(age) FROM students;` |
