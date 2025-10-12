@@ -1,0 +1,69 @@
+🔗 Types of SQL Joins
+1. INNER JOIN
+Returns only the rows with matching values in both tables.
+
+Example:
+
+sql
+SELECT employees.name, departments.name
+FROM employees
+INNER JOIN departments ON employees.dept_id = departments.id;
+🟢 Only employees who belong to a department will be shown.
+
+2. LEFT JOIN (or LEFT OUTER JOIN)
+Returns all rows from the left table, and matched rows from the right table. If no match, NULLs are returned.
+
+Example:
+
+sql
+SELECT employees.name, departments.name
+FROM employees
+LEFT JOIN departments ON employees.dept_id = departments.id;
+🟡 All employees are shown, even if they don’t belong to any department.
+
+3. RIGHT JOIN (or RIGHT OUTER JOIN)
+Returns all rows from the right table, and matched rows from the left table. If no match, NULLs are returned.
+
+Example:
+
+sql
+SELECT employees.name, departments.name
+FROM employees
+RIGHT JOIN departments ON employees.dept_id = departments.id;
+🟠 All departments are shown, even if they have no employees.
+
+4. FULL OUTER JOIN
+Returns all rows when there is a match in either left or right table. If no match, NULLs are returned.
+
+Example:
+
+sql
+SELECT employees.name, departments.name
+FROM employees
+FULL OUTER JOIN departments ON employees.dept_id = departments.id;
+🔵 Combines LEFT and RIGHT JOINs — shows all employees and all departments.
+
+🔁 What is a Self Join?
+A self join is when a table is joined with itself. Useful for hierarchical or relational data within the same table.
+
+Use Case: Find employees and their managers (both in the same employees table).
+
+Example:
+
+sql
+SELECT e.name AS Employee, m.name AS Manager
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.id;
+🧠 This helps identify reporting structures.
+
+🔗 Joining Three or More Tables
+You can chain multiple joins together.
+
+Example: Get employee name, department name, and location from three tables.
+
+sql
+SELECT e.name AS Employee, d.name AS Department, l.city AS Location
+FROM employees e
+JOIN departments d ON e.dept_id = d.id
+JOIN locations l ON d.location_id = l.id;
+🧩 Just keep joining tables using appropriate keys — SQL doesn’t limit the number of joins.
