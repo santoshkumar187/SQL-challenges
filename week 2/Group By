@@ -1,0 +1,55 @@
+🔹 What is GROUP BY?
+
+The GROUP BY clause in SQL is used to arrange identical data into groups.
+It’s mostly used with aggregate functions like:
+
+COUNT() – count rows
+
+SUM() – total
+
+AVG() – average
+
+MIN() – smallest value
+
+MAX() – largest value
+
+🔹 Basic Syntax
+SELECT column_name, AGGREGATE_FUNCTION(column_name)
+FROM table_name
+GROUP BY column_name;
+
+🔹 Example 1: Counting employees per department
+
+Let’s say you have a table employees like this 👇
+
+emp_id	name	dept
+1	Raj	HR
+2	Meena	IT
+3	Ramesh	HR
+4	Neha	IT
+5	Rahul	Sales
+
+Now, to find how many employees are in each department:
+
+SELECT dept, COUNT(*) AS total_employees
+FROM employees
+GROUP BY dept;
+
+
+✅ Output:
+
+dept	total_employees
+HR	2
+IT	2
+
+
+
+| Clause       | Purpose                      |
+| ------------ | ---------------------------- |
+| **GROUP BY** | Divides data into groups     |
+| **COUNT()**  | Counts rows in each group    |
+| **SUM()**    | Adds up values per group     |
+| **AVG()**    | Calculates average per group |
+| **HAVING**   | Filters grouped data         |
+
+Sales	1
