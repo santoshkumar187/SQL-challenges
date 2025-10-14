@@ -1,0 +1,163 @@
+🧩 1. Primary Key
+
+Definition:
+A Primary Key uniquely identifies each record in a table.
+
+It cannot be NULL
+
+It must be unique
+
+🧠 Each table can have only one Primary Key, but it can consist of multiple columns (called a Composite Key).
+
+Example:
+
+CREATE TABLE Students (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT
+);
+
+
+Here, student_id uniquely identifies each student — no duplicates, no NULLs.
+
+🔑 2. Composite Key
+
+Definition:
+A Composite Key is a Primary Key made up of two or more columns.
+
+Example:
+
+CREATE TABLE Course_Enrollments (
+    student_id INT,
+    course_id INT,
+    PRIMARY KEY (student_id, course_id)
+);
+
+
+Here, the combination of (student_id, course_id) uniquely identifies each record — not individually, but together.
+
+🧷 3. Foreign Key
+
+Definition:
+A Foreign Key is used to link two tables.
+It refers to the Primary Key of another table, ensuring referential integrity.
+
+Example:
+
+CREATE TABLE Departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(50)
+);
+
+CREATE TABLE Employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES Departments(dept_id)
+);
+
+
+Here, dept_id in Employees refers to dept_id in Departments.
+This ensures you can’t assign an employee to a department that doesn’t exist.
+
+💎 4. Unique Key
+
+Definition:
+A Unique Key ensures that all values in a column are unique, but it can have one NULL value (unlike Primary Key).
+
+Example:
+
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY,
+    email VARCHAR(100) UNIQUE
+);
+
+
+Here, two users can’t have the same email, but one record can have NULL in that column.
+
+📎 5. Candidate Key
+
+Definition:
+A Candidate Key is any column (or set of columns) that can uniquely identify a record in a table.
+Among all candidate keys, one is chosen as the Primary Key.
+
+Example:
+
+CREATE TABLE Students (
+    student_id INT,
+    roll_no INT,
+    email VARCHAR(50),
+    PRIMARY KEY (student_id),
+    UNIQUE (roll_no),
+    UNIQUE (email)
+);
+
+
+Here:
+
+student_id, roll_no, and email — all are candidate keys
+
+student_id is chosen as the Primary Key
+
+🪶 6. Alternate Key
+
+Definition:
+A Candidate Key that is not selected as the Primary Key is called an Alternate Key.
+
+Example (continued from above):
+
+roll_no and email are Alternate Keys
+
+student_id is the Primary Key
+
+📘 7. Super Key
+
+Definition:
+A Super Key is any set of columns that uniquely identifies a record — it can include extra unnecessary columns too.
+
+Example:
+
+CREATE TABLE Employees (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    email VARCHAR(50),
+    phone VARCHAR(15)
+);
+
+
+Here:
+
+{emp_id} — Super Key
+
+{emp_id, email} — also a Super Key
+
+{email, phone} — also a Super Key
+
+👉 The minimal super key (no extra attributes) is the Candidate Key.
+
+🧱 8. Surrogate Key
+
+Definition:
+A Surrogate Key is a system-generated unique identifier, often used when there’s no natural primary key in data.
+Usually implemented as an auto-incremented ID.
+
+Example:
+
+CREATE TABLE Orders (
+    order_id INT IDENTITY(1,1) PRIMARY KEY,
+    customer_name VARCHAR(50),
+    order_date DATE
+);
+
+
+
+| Key Type          | Description                               | Can be NULL | Can Duplicate | Example                   |
+| ----------------- | ----------------------------------------- | ----------- | ------------- | ------------------------- |
+| **Primary Key**   | Uniquely identifies each record           | ❌           | ❌             | `student_id`              |
+| **Composite Key** | Combination of two or more columns as PK  | ❌           | ❌             | `(student_id, course_id)` |
+| **Foreign Key**   | References another table’s PK             | ✅           | ✅             | `dept_id` in Employees    |
+| **Unique Key**    | Ensures unique values in a column         | ✅ (one)     | ❌             | `email`                   |
+| **Candidate Key** | All possible unique identifiers           | ❌           | ❌             | `student_id`, `email`     |
+| **Alternate Key** | Candidate Key not chosen as PK            | ❌           | ❌             | `email`                   |
+| **Super Key**     | Any key that uniquely identifies a record | ❌           | ❌             | `{emp_id, email}`         |
+| **Surrogate Key** | Artificial key (auto-increment)           | ❌           | ❌             | `order_id`                |
