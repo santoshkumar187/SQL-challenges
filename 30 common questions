@@ -1,0 +1,164 @@
+-- Assume we have 2 tables for practice:
+-- Employees(id, name, salary, department_id, job_title, email, hire_date, manager_id)
+-- Departments(id, department_name)
+
+-- 1. Retrieve all records from a table
+SELECT * FROM Employees;
+-- Fetches all rows and all columns from Employees table.
+
+-- 2. Find the total number of employees
+SELECT COUNT(*) AS total_employees FROM Employees;
+-- COUNT(*) counts how many rows exist in the table.
+
+-- 3. Get the highest salary
+SELECT MAX(salary) AS highest_salary FROM Employees;
+-- MAX() finds the maximum salary value.
+
+-- 4. Get the lowest salary
+SELECT MIN(salary) AS lowest_salary FROM Employees;
+-- MIN() finds the minimum salary value.
+
+-- 5. Calculate average salary
+SELECT AVG(salary) AS avg_salary FROM Employees;
+-- AVG() calculates average of salary column.
+
+-- 6. Retrieve employee names in ascending order
+SELECT name FROM Employees ORDER BY name ASC;
+-- ORDER BY sorts names alphabetically (ASC = ascending).
+
+-- 7. Retrieve employee names in descending order of salary
+SELECT name, salary FROM Employees ORDER BY salary DESC;
+-- Sorts employees by salary (highest → lowest).
+
+-- 8. Find employees with salary greater than 50000
+SELECT * FROM Employees WHERE salary > 50000;
+-- WHERE filters rows where salary > 50000.
+
+-- 9. Find employees from specific department
+SELECT * FROM Employees WHERE department_id = 2;
+-- Filters employees who belong to department 2 (example).
+
+-- 10. Find employees whose name starts with 'A'
+SELECT * FROM Employees WHERE name LIKE 'A%';
+-- LIKE 'A%' matches names starting with A.
+
+-- 11. Find employees whose name ends with 'n'
+SELECT * FROM Employees WHERE name LIKE '%n';
+-- '%n' matches names ending with n.
+
+-- 12. Find employees whose name contains 'an'
+SELECT * FROM Employees WHERE name LIKE '%an%';
+-- '%an%' matches names containing substring "an".
+
+-- 13. Find employees hired between 2020 and 2022
+SELECT * FROM Employees WHERE hire_date BETWEEN '2020-01-01' AND '2022-12-31';
+-- BETWEEN checks if hire_date lies in the range.
+
+-- 14. Find distinct job titles
+SELECT DISTINCT job_title FROM Employees;
+-- DISTINCT removes duplicates from results.
+
+-- 15. Group employees by department and count them
+SELECT department_id, COUNT(*) AS emp_count
+FROM Employees
+GROUP BY department_id;
+-- Groups rows by department_id and counts employees in each.
+
+-- 16. Get department-wise average salary
+SELECT department_id, AVG(salary) AS avg_salary
+FROM Employees
+GROUP BY department_id;
+-- Groups employees by department and calculates avg salary.
+
+-- 17. Get departments with more than 5 employees
+SELECT department_id, COUNT(*) AS emp_count
+FROM Employees
+GROUP BY department_id
+HAVING COUNT(*) > 5;
+-- HAVING filters aggregated results (departments with >5 employees).
+
+-- 18. Find 2nd highest salary (Method 1: Subquery)
+SELECT MAX(salary) AS second_highest
+FROM Employees
+WHERE salary < (SELECT MAX(salary) FROM Employees);
+-- First finds MAX(salary), then finds next max below it.
+
+-- 19. Find Nth highest salary (Example: 3rd highest)
+SELECT DISTINCT salary
+FROM Employees e1
+WHERE 3-1 = (
+  SELECT COUNT(DISTINCT salary) 
+  FROM Employees e2
+  WHERE e2.salary > e1.salary
+);
+-- For each salary, counts how many are greater.
+-- If count = N-1 (2 here), that salary is Nth highest.
+
+-- 20. Find duplicate records (by email)
+SELECT email, COUNT(*) 
+FROM Employees
+GROUP BY email
+HAVING COUNT(*) > 1;
+-- Groups by email, shows duplicates with count > 1.
+
+-- 21. Delete duplicate records (keep only one)
+DELETE FROM Employees
+WHERE id NOT IN (
+  SELECT MIN(id) 
+  FROM Employees 
+  GROUP BY email
+);
+-- Keeps the row with smallest ID per email, deletes others.
+
+-- 22. Find employees who don’t belong to any department (NULL check)
+SELECT * FROM Employees WHERE department_id IS NULL;
+-- Checks for NULL (unknown/missing) values.
+
+-- 23. Find employees with salary IN a given list
+SELECT * FROM Employees WHERE salary IN (30000, 50000, 70000);
+-- IN checks if salary is one of the listed values.
+
+-- 24. Join: Employee details with Department name
+SELECT e.id, e.name, d.department_name
+FROM Employees e
+JOIN Departments d ON e.department_id = d.id;
+-- INNER JOIN matches rows from both tables where dept_id = id.
+
+-- 25. Left Join: All employees even without department
+SELECT e.id, e.name, d.department_name
+FROM Employees e
+LEFT JOIN Departments d ON e.department_id = d.id;
+-- LEFT JOIN returns all employees, even if department is missing (NULL).
+
+-- 26. Self Join: Find manager names for employees
+SELECT e.name AS employee, m.name AS manager
+FROM Employees e
+JOIN Employees m ON e.manager_id = m.id;
+-- Joins table with itself to match employees with managers.
+
+-- 27. Subquery: Find employees earning more than average salary
+SELECT * FROM Employees
+WHERE salary > (SELECT AVG(salary) FROM Employees);
+-- Compares each employee’s salary against overall average.
+
+-- 28. Window Function: Rank employees by salary
+SELECT name, salary, RANK() OVER (ORDER BY salary DESC) AS rank
+FROM Employees;
+-- Assigns rank to each employee (ties get same rank).
+
+-- 29. Window Function: Department-wise top 2 salaries
+SELECT name, department_id, salary
+FROM (
+  SELECT name, department_id, salary,
+         ROW_NUMBER() OVER (PARTITION BY department_id ORDER BY salary DESC) AS row_num
+  FROM Employees
+) t
+WHERE row_num <= 2;
+-- Uses ROW_NUMBER() partitioned by department, keeps top 2 per dept.
+
+-- 30. Find employees who joined on the same date
+SELECT hire_date, COUNT(*) AS emp_count
+FROM Employees
+GROUP BY hire_date
+HAVING COUNT(*) > 1;
+-- Groups employees by hire_date, shows dates with >1 hires.
