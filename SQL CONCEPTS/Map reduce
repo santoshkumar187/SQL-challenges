@@ -1,0 +1,59 @@
+🧠 What is MapReduce?
+MapReduce is a programming model used for processing large datasets in a distributed computing environment. It was popularized by Google and is the foundation of systems like Hadoop.
+
+It works in two main phases:
+
+Map: Breaks down the input data into key-value pairs.
+
+Reduce: Aggregates those pairs to produce the final result.
+
+📚 Word Count Example
+Imagine you have a huge collection of documents and you want to count how many times each word appears.
+
+🔹 Map Phase
+Each document is processed independently. The mapper reads the text and emits key-value pairs:
+
+Code
+Input: "Hello world Hello"
+Output: ("Hello", 1), ("world", 1), ("Hello", 1)
+🔹 Shuffle & Sort (Behind the scenes)
+All the key-value pairs are grouped by key:
+
+Code
+Grouped: ("Hello", [1, 1]), ("world", [1])
+🔹 Reduce Phase
+The reducer sums the values for each key:
+
+Code
+Output: ("Hello", 2), ("world", 1)
+💬 Interview POV Tips
+Highlight scalability: “MapReduce is designed to scale across thousands of machines.”
+
+Mention fault tolerance: “If a node fails, the system reassigns the task automatically.”
+
+Use real-world analogy: “Think of it like splitting a big task among friends, then combining everyone's results.”
+
+
+
+sql
+SELECT word, 1 AS count
+FROM documents
+CROSS APPLY STRING_SPLIT(text_column, ' ')
+documents is your table.
+
+text_column contains the text.
+
+STRING_SPLIT breaks the text into words (available in SQL Server; other databases may use different functions).
+
+🔹 Reduce Phase Equivalent in SQL
+In MapReduce, the Reduce phase aggregates counts by word. In SQL, this is a GROUP BY:
+
+sql
+SELECT word, SUM(count) AS total_count
+FROM (
+    SELECT word, 1 AS count
+    FROM documents
+    CROSS APPLY STRING_SPLIT(text_column, ' ')
+) AS word_counts
+GROUP BY word
+ORDER BY total_count DESC
