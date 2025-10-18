@@ -1,0 +1,39 @@
+Step-by-Step Logic
+Join products and sales tables to get product names and categories.
+
+Group by product and category to calculate total quantity sold.
+
+Use ROW_NUMBER() to rank products within each category by total sales.
+
+Filter to keep only the top-ranked product per category.
+
+✅ SQL Query Using ROW_NUMBER()
+sql
+WITH product_sales AS (
+    SELECT 
+        p.category_id,
+        p.product_id,
+        p.name,
+        SUM(s.quantity) AS total_quantity,
+        ROW_NUMBER() OVER (
+            PARTITION BY p.category_id 
+            ORDER BY SUM(s.quantity) DESC
+        ) AS rank
+    FROM products p
+    JOIN sales s ON p.product_id = s.product_id
+    GROUP BY p.category_id, p.product_id, p.name
+)
+
+SELECT 
+    category_id,
+    product_id,
+    name,
+    total_quantity
+FROM product_sales
+WHERE rank = 1;
+🧪 What This Does
+SUM(s.quantity) calculates total sales per product.
+
+ROW_NUMBER() ranks products within each category.
+
+WHERE rank = 1 filters to the top-selling product per category.
