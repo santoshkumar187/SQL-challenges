@@ -1,0 +1,32 @@
+✅ Main Question: Most Active User Per Day
+Goal: Find the user with the highest number of logins for each day.
+
+sql
+SELECT login_date, user_id
+FROM (
+    SELECT DATE(login_time) AS login_date,
+           user_id,
+           COUNT(*) AS login_count,
+           RANK() OVER (PARTITION BY DATE(login_time) ORDER BY COUNT(*) DESC) AS rnk
+    FROM user_logins
+    GROUP BY DATE(login_time), user_id
+) ranked_logins
+WHERE rnk = 1;
+Explanation:
+
+DATE(login_time) extracts the date from the timestamp.
+
+COUNT(*) counts logins per user per day.
+
+RANK() assigns a rank based on login count per day.
+
+WHERE rnk = 1 filters for the top-ranked user.
+
+🔁 Follow-up: Handle Ties in Login Count
+If multiple users have the same highest login count on a given day, the query above already handles it correctly using RANK() — it will return all users with the top count.
+
+If you used ROW_NUMBER() instead, it would return only one user, even if others tied. So:
+
+✅ Use RANK() → includes ties.
+
+❌ Avoid ROW_NUMBER() → excludes ties.
