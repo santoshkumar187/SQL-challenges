@@ -1,0 +1,106 @@
+🕒 NOW() — Current Date and Time
+Definition: The NOW() function returns the current system date and time in the format YYYY-MM-DD HH:MM:SS.
+
+Use Case: It’s commonly used for:
+
+Timestamping records (e.g., when a sale or login occurs)
+
+Comparing with other datetime fields
+
+Logging system events
+
+Example Query:
+
+sql
+SELECT NOW();
+Sample Output:
+
+Code
+2025-10-21 19:03:00
+📅 CURDATE() — Current Date Only
+Definition: The CURDATE() function returns the current system date without the time component, in the format YYYY-MM-DD.
+
+Use Case: It’s useful when:
+
+You only care about the date (not the time)
+
+Filtering records by date
+
+Calculating age or duration in days
+
+Example Query:
+
+sql
+SELECT CURDATE();
+Sample Output:
+
+Code
+2025-10-21
+🧠 Summary
+Function	Returns	Format	Includes Time?
+NOW()	Current date and time	YYYY-MM-DD HH:MM:SS	✅ Yes
+CURDATE()	Current date only	YYYY-MM-DD	❌ No
+
+
+
+
+  
+
+---
+
+### 🧾 Table: `sales`
+
+| sale_id | product_name | sale_date  | sale_amount |
+|---------|--------------|------------|-------------|
+| 1       | Widget A     | 2024-08-01 | 100.00      |
+| 2       | Widget B     | 2024-08-05 | 150.00      |
+| 3       | Widget C     | 2024-08-07 | 200.00      |
+| 4       | Widget A     | 2024-08-10 | 120.00      |
+| 5       | Widget B     | 2024-08-15 | 180.00      |
+| 6       | Widget C     | 2024-08-20 | 250.00      |
+
+---
+
+### 🕒 Example 1: Add Current Timestamp to Each Row
+
+```sql
+SELECT 
+    sale_id,
+    product_name,
+    sale_date,
+    sale_amount,
+    NOW() AS current_timestamp
+FROM sales;
+```
+
+This adds the **current date and time** to every row, useful for logging or comparing with `sale_date`.
+
+---
+
+### 📅 Example 2: Show Only Current Date
+
+```sql
+SELECT 
+    sale_id,
+    product_name,
+    sale_date,
+    CURDATE() AS today_date
+FROM sales;
+```
+
+This adds today's date (without time) to each row. You can use it to filter or calculate age of sales.
+
+---
+
+### 🔍 Example 3: Filter Sales Made Today
+
+If your table had today's date (e.g., `'2025-10-21'`), you could filter like this:
+
+```sql
+SELECT *
+FROM sales
+WHERE sale_date = CURDATE();
+```
+
+
+  
