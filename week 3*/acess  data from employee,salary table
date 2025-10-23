@@ -1,0 +1,206 @@
+
+
+## 💼 Interview-Style SQL Question: **Employee Department Salaries**
+
+### 🧾 Table Structure
+
+You are given two tables:
+
+#### `Employees`
+| Column      | Type     |
+|-------------|----------|
+| `emp_id`    | INT      |
+| `name`      | VARCHAR  |
+| `salary`    | INT      |
+| `dept_id`   | INT      |
+
+#### `Departments`
+| Column      | Type     |
+|-------------|----------|
+| `dept_id`   | INT      |
+| `dept_name` | VARCHAR  |
+
+---
+
+## ❓ Problem Statement
+
+**Find the department(s) with the highest average salary.**  
+Return the department name and the average salary, rounded to 2 decimal places.
+
+---
+
+## 🧠 Thought Process
+
+1. **Join** the `Employees` and `Departments` tables on `dept_id`.
+2. **Group** by `dept_name` and calculate the average salary.
+3. Use a **subquery or CTE** to find the **maximum average salary**.
+4. **Filter** departments that match this maximum.
+
+---
+
+## ✅ SQL Solution
+
+```sql
+WITH DeptAvg AS (
+    SELECT 
+        d.dept_name,
+        ROUND(AVG(e.salary), 2) AS avg_salary
+    FROM Employees e
+    JOIN Departments d ON e.dept_id = d.dept_id
+    GROUP BY d.dept_name
+)
+
+SELECT 
+    dept_name,
+    avg_salary
+FROM DeptAvg
+WHERE avg_salary = (
+    SELECT MAX(avg_salary) FROM DeptAvg
+);
+```
+
+---
+
+## 🧪 Sample Data
+
+### Employees
+| emp_id | name   | salary | dept_id |
+|--------|--------|--------|---------|
+| 1      | Alice  | 60000  | 1       |
+| 2      | Bob    | 70000  | 1       |
+| 3      | Carol  | 80000  | 2       |
+| 4      | Dave   | 90000  | 2       |
+| 5      | Eve    | 50000  | 3       |
+
+### Departments
+| dept_id | dept_name |
+|---------|-----------|
+| 1       | HR        |
+| 2       | Engineering |
+| 3       | Sales     |
+
+### Output
+| dept_name   | avg_salary |
+|-------------|------------|
+| Engineering | 85000.00   |
+
+---
+
+## 🧠 Interview Tips
+
+- Explain why you used a CTE: improves readability and reuse.
+- Mention performance: `JOIN` + `GROUP BY` + `MAX` is efficient with indexes.
+- Be ready to tweak: interviewer may ask for top 3 departments, or include employee count.
+
+
+*********************************
+
+
+
+
+  Actula output got case
+
+Great question, Santosh! Let's walk through **how this output was derived step by step** using the SQL query logic and sample data.
+
+---
+
+## 🧾 Sample Data Recap
+
+### `Employees` Table
+
+| emp_id | name   | salary | dept_id |
+|--------|--------|--------|---------|
+| 1      | Alice  | 60000  | 1       |
+| 2      | Bob    | 70000  | 1       |
+| 3      | Carol  | 80000  | 2       |
+| 4      | Dave   | 90000  | 2       |
+| 5      | Eve    | 50000  | 3       |
+
+### `Departments` Table
+
+| dept_id | dept_name   |
+|---------|-------------|
+| 1       | HR          |
+| 2       | Engineering |
+| 3       | Sales       |
+
+---
+
+## 🧠 SQL Query Logic Recap
+
+```sql
+SELECT 
+    d.dept_name,
+    ROUND(AVG(e.salary), 2) AS avg_salary,
+    COUNT(e.emp_id) AS employee_count
+FROM Employees e
+JOIN Departments d ON e.dept_id = d.dept_id
+GROUP BY d.dept_name
+HAVING COUNT(e.emp_id) >= 2
+ORDER BY avg_salary DESC
+LIMIT 3;
+```
+
+---
+
+## 🔍 Step-by-Step Execution
+
+### 🔗 Step 1: Join Employees with Departments
+
+We join on `dept_id`, so each employee gets matched with their department name.
+
+| name   | salary | dept_name   |
+|--------|--------|-------------|
+| Alice  | 60000  | HR          |
+| Bob    | 70000  | HR          |
+| Carol  | 80000  | Engineering |
+| Dave   | 90000  | Engineering |
+| Eve    | 50000  | Sales       |
+
+---
+
+### 📊 Step 2: Group by `dept_name` and Aggregate
+
+We calculate:
+- `AVG(salary)`
+- `COUNT(emp_id)`
+
+| dept_name   | avg_salary | employee_count |
+|-------------|------------|----------------|
+| HR          | (60000+70000)/2 = 65000.00 | 2 |
+| Engineering | (80000+90000)/2 = 85000.00 | 2 |
+| Sales       | 50000.00                    | 1 |
+
+---
+
+### 🚫 Step 3: Apply `HAVING COUNT(emp_id) >= 2`
+
+This filters out departments with fewer than 2 employees.
+
+✅ Included:
+- HR
+- Engineering
+
+❌ Excluded:
+- Sales (only 1 employee)
+
+---
+
+### 🔽 Step 4: Order by `avg_salary DESC` and Limit to Top 3
+
+| dept_name   | avg_salary | employee_count |
+|-------------|------------|----------------|
+| Engineering | 85000.00   | 2              |
+| HR          | 65000.00   | 2              |
+
+Sales is excluded due to the `HAVING` clause.
+
+---
+
+## ✅ Final Output
+
+| dept_name   | avg_salary | employee_count |
+|-------------|------------|----------------|
+| Engineering | 85000.00   | 2              |
+| HR          | 65000.00   | 2              |
+
