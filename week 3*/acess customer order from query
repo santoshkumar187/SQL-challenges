@@ -1,0 +1,39 @@
+
+### 📋 Sample `Orders` Table
+
+| order_id | customer_id | order_date  |
+|----------|-------------|-------------|
+| 101      | 1           | 2025-10-20  |
+| 102      | 2           | 2025-10-18  |
+| 103      | 1           | 2025-10-15  |
+| 104      | 3           | 2025-10-10  |
+| 105      | 1           | 2025-10-05  |
+| 106      | 2           | 2025-10-03  |
+| 107      | 1           | 2025-10-01  |
+| 108      | 2           | 2025-09-30  |
+| 109      | 4           | 2025-10-22  |
+| 110      | 2           | 2025-10-21  |
+
+Assuming today's date is **2025-10-25**, the query:
+
+```sql
+SELECT customer_id
+FROM Orders
+WHERE order_date >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+GROUP BY customer_id
+HAVING COUNT(*) > 3;
+```
+
+### ✅ Output
+
+| customer_id |
+|-------------|
+| 1           |
+| 2           |
+
+**Explanation:**
+- **Customer 1** has 4 orders in the last month (Oct 1, 5, 15, 20)
+- **Customer 2** has 4 orders in the last month (Oct 3, 18, 21, and one on Sep 30 which is *excluded*)
+- Others have ≤ 1 order
+
+Let me know if you'd like to simulate this with a different date range or join it with a `Customers` table to show names too!
