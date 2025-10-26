@@ -1,0 +1,92 @@
+1. Social Media – Top Liked Users
+Table: Posts
+
+post_id | user_id | likes | created_at
+--------|---------|-------|-------------
+101     | 1       | 120   | 2025-10-01
+102     | 2       | 300   | 2025-10-15
+103     | 1       | 150   | 2025-10-20
+
+
+SELECT user_id, SUM(likes) AS total_likes
+FROM Posts
+WHERE created_at BETWEEN '2025-10-01' AND '2025-10-31'
+GROUP BY user_id
+ORDER BY total_likes DESC
+LIMIT 2;
+
+ouput
+
+user_id | total_likes
+--------|-------------
+2       | 300
+1       | 270
+
+
+
+## 🧠 Line-by-Line Explanation
+
+### ✅ `SELECT user_id, SUM(likes) AS total_likes`
+- **`SELECT`**: This tells SQL what columns or calculations you want to see in the result.
+- **`user_id`**: This is a column from the `Posts` table. It identifies the user who made the post.
+- **`SUM(likes)`**: This adds up all the likes for each user.
+- **`AS total_likes`**: This gives a name (alias) to the result of `SUM(likes)`. Instead of showing a column called `SUM(likes)`, it will be labeled `total_likes`.
+
+
+
+### ✅ `FROM Posts`
+- **`FROM`**: This tells SQL which table to use.
+- **`Posts`**: The name of the table that contains post data — including `user_id`, `likes`, and `created_at`.
+
+📌 **Think of this as: “Look inside the Posts table.”**
+
+---
+
+### ✅ `WHERE created_at BETWEEN '2025-10-01' AND '2025-10-31'`
+- **`WHERE`**: Filters the rows — only includes rows that match this condition.
+- **`created_at`**: A column that stores the date the post was made.
+- **`BETWEEN '2025-10-01' AND '2025-10-31'`**: Only include posts made in October 2025.
+
+📌 **This narrows down the data to just October posts.**
+
+---
+
+### ✅ `GROUP BY user_id`
+- **`GROUP BY`**: Tells SQL to group rows that have the same `user_id`.
+- This is necessary because we’re using `SUM(likes)` — an aggregate function — and we want the sum **per user**.
+
+📌 **This creates one row per user, combining all their posts.**
+
+---
+
+### ✅ `ORDER BY total_likes DESC`
+- **`ORDER BY`**: Sorts the result.
+- **`total_likes`**: The alias we gave to `SUM(likes)`.
+- **`DESC`**: Descending order — highest likes first.
+
+📌 **This ranks users by popularity (likes).**
+
+---
+
+### ✅ `LIMIT 2`
+- **`LIMIT`**: Restricts the number of rows returned.
+- **`2`**: Only show the top 2 users.
+
+📌 **This gives you the 2 most-liked users in October.**
+
+---
+
+## 🧾 Final Output Example
+
+| user_id | total_likes |
+|---------|-------------|
+| 2       | 300         |
+| 1       | 270         |
+
+---
+
+## 🧠 Summary in Plain English:
+_"From the Posts table, find all posts made in October 2025. Group them by user, add up the likes for each user, 
+sort the users by total likes in descending order, and show only the top 2 users."_
+
+
