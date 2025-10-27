@@ -1,0 +1,50 @@
+
+### 📄 Tables
+
+#### `Users`
+```sql
+user_id | username
+--------|---------
+1       | Alice
+2       | Bob
+```
+
+#### `Posts`
+```sql
+post_id | user_id | content
+--------|---------|--------
+101     | 1       | "Hello world"
+102     | 2       | "SQL is fun"
+```
+
+#### `Likes`
+```sql
+like_id | user_id | post_id
+--------|---------|--------
+201     | 2       | 101   -- Bob liked Alice's post
+202     | 1       | 102   -- Alice liked Bob's post
+```
+
+---
+
+### ✅ Simple Query: Show Who Liked What
+
+```sql
+SELECT 
+    u.username AS liker,
+    p.content AS liked_post
+FROM 
+    Likes l
+JOIN Users u ON l.user_id = u.user_id
+JOIN Posts p ON l.post_id = p.post_id;
+```
+
+---
+
+### 🧪 Output
+
+| liker | liked_post     |
+|--------|----------------|
+| Bob    | Hello world    |
+| Alice  | SQL is fun     |
+
