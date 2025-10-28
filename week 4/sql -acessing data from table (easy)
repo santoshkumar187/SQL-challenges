@@ -1,0 +1,146 @@
+
+
+
+
+## 🧾 Sample Table: `Employees`
+
+| emp_id | name   | department | salary | join_date  |
+|--------|--------|------------|--------|------------|
+| 1      | Alice  | HR         | 60000  | 2020-01-15 |
+| 2      | Bob    | IT         | 75000  | 2019-03-22 |
+| 3      | Carol  | Finance    | 80000  | 2021-07-10 |
+| 4      | Dave   | IT         | 72000  | 2022-11-01 |
+| 5      | Eve    | HR         | 65000  | 2023-05-05 |
+
+---
+
+## 🧪 SQL Practice Questions with Output
+
+### 1. **Select all employee names and salaries**
+```sql
+SELECT name, salary FROM Employees;
+```
+**Output:**
+| name  | salary |
+|-------|--------|
+| Alice | 60000  |
+| Bob   | 75000  |
+| Carol | 80000  |
+| Dave  | 72000  |
+| Eve   | 65000  |
+
+---
+
+### 2. **Find employees in the IT department**
+```sql
+SELECT * FROM Employees WHERE department = 'IT';
+```
+**Output:**
+| emp_id | name | department | salary | join_date  |
+|--------|------|------------|--------|------------|
+| 2      | Bob  | IT         | 75000  | 2019-03-22 |
+| 4      | Dave | IT         | 72000  | 2022-11-01 |
+
+---
+
+### 3. **List employees with salary greater than 70000**
+```sql
+SELECT name FROM Employees WHERE salary > 70000;
+```
+**Output:**
+| name  |
+|-------|
+| Bob   |
+| Carol |
+| Dave  |
+
+---
+
+### 4. **Show all employees sorted by salary (highest first)**
+```sql
+SELECT name, salary FROM Employees ORDER BY salary DESC;
+```
+**Output:**
+| name  | salary |
+|-------|--------|
+| Carol | 80000  |
+| Bob   | 75000  |
+| Dave  | 72000  |
+| Eve   | 65000  |
+| Alice | 60000  |
+
+---
+
+### 5. **Count how many employees are in each department**
+```sql
+SELECT department, COUNT(*) AS count FROM Employees GROUP BY department;
+```
+**Output:**
+| department | count |
+|------------|-------|
+| HR         | 2     |
+| IT         | 2     |
+| Finance    | 1     |
+
+---
+
+### 6. **Find the average salary of all employees**
+```sql
+SELECT AVG(salary) AS average_salary FROM Employees;
+```
+**Output:**
+| average_salary |
+|----------------|
+| 70400.00       |
+
+---
+
+### 7. **Get the employee who joined most recently**
+```sql
+SELECT name FROM Employees ORDER BY join_date DESC LIMIT 1;
+```
+**Output:**
+| name |
+|------|
+| Eve  |
+
+---
+
+### 8. **Find employees who joined after Jan 1, 2021**
+```sql
+SELECT name FROM Employees WHERE join_date > '2021-01-01';
+```
+**Output:**
+| name  |
+|-------|
+| Carol |
+| Dave  |
+| Eve   |
+
+---
+
+### 9. **Show total salary paid per department**
+```sql
+SELECT department, SUM(salary) AS total_salary FROM Employees GROUP BY department;
+```
+**Output:**
+| department | total_salary |
+|------------|--------------|
+| HR         | 125000       |
+| IT         | 147000       |
+| Finance    | 80000        |
+
+---
+
+### 10. **Display employees whose names start with 'A'**
+```sql
+SELECT name FROM Employees WHERE name LIKE 'A%';
+```
+**Output:**
+| name  |
+|-------|
+| Alice |
+
+---
+
+
