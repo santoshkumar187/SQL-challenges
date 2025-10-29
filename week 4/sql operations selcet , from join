@@ -1,0 +1,148 @@
+
+
+## 🧾 Sample Tables
+
+### `Employees`
+
+| emp_id | name   | dept_id | salary |
+|--------|--------|---------|--------|
+| 1      | Alice  | 101     | 60000  |
+| 2      | Bob    | 102     | 75000  |
+| 3      | Carol  | 103     | 80000  |
+| 4      | Dave   | 102     | 72000  |
+| 5      | Eve    | 101     | 65000  |
+
+### `Departments`
+
+| dept_id | dept_name |
+|---------|-----------|
+| 101     | HR        |
+| 102     | IT        |
+| 103     | Finance   |
+| 104     | Marketing |
+
+---
+
+## 🧪 SQL Practice Questions with Output
+
+### 1. **Get all employees with their department names**
+```sql
+SELECT e.name, d.dept_name
+FROM Employees e
+JOIN Departments d ON e.dept_id = d.dept_id;
+```
+**Output:**
+| name  | dept_name |
+|-------|-----------|
+| Alice | HR        |
+| Bob   | IT        |
+| Carol | Finance   |
+| Dave  | IT        |
+| Eve   | HR        |
+
+---
+
+### 2. **Find the highest salary in each department**
+```sql
+SELECT dept_id, MAX(salary) AS max_salary
+FROM Employees
+GROUP BY dept_id;
+```
+**Output:**
+| dept_id | max_salary |
+|---------|------------|
+| 101     | 65000      |
+| 102     | 75000      |
+| 103     | 80000      |
+
+---
+
+### 3. **List departments with more than one employee**
+```sql
+SELECT dept_id, COUNT(*) AS emp_count
+FROM Employees
+GROUP BY dept_id
+HAVING COUNT(*) > 1;
+```
+**Output:**
+| dept_id | emp_count |
+|---------|-----------|
+| 101     | 2         |
+| 102     | 2         |
+
+---
+
+### 4. **Find employees earning more than the average salary**
+```sql
+SELECT name, salary
+FROM Employees
+WHERE salary > (SELECT AVG(salary) FROM Employees);
+```
+**Output:**
+| name  | salary |
+|-------|--------|
+| Bob   | 75000  |
+| Carol | 80000  |
+| Dave  | 72000  |
+
+---
+
+### 5. **Show the second highest salary**
+```sql
+SELECT MAX(salary) AS second_highest
+FROM Employees
+WHERE salary < (SELECT MAX(salary) FROM Employees);
+```
+**Output:**
+| second_highest |
+|----------------|
+| 75000          |
+
+---
+
+### 6. **List employees who work in the 'IT' department**
+```sql
+SELECT e.name
+FROM Employees e
+JOIN Departments d ON e.dept_id = d.dept_id
+WHERE d.dept_name = 'IT';
+```
+**Output:**
+| name |
+|------|
+| Bob  |
+| Dave |
+
+---
+
+### 7. **Show total salary paid per department name**
+```sql
+SELECT d.dept_name, SUM(e.salary) AS total_salary
+FROM Employees e
+JOIN Departments d ON e.dept_id = d.dept_id
+GROUP BY d.dept_name;
+```
+**Output:**
+| dept_name | total_salary |
+|-----------|--------------|
+| HR        | 125000       |
+| IT        | 147000       |
+| Finance   | 80000        |
+
+---
+
+### 8. **Find departments with no employees**
+```sql
+SELECT d.dept_name
+FROM Departments d
+LEFT JOIN Employees e ON d.dept_id = e.dept_id
+WHERE e.emp_id IS NULL;
+```
+**Output:**
+| dept_name |
+|-----------|
+| Marketing |
+
+---
+
+Would you like to try solving these interactively or convert them into a mini quiz with explanations and hints? I can also generate more advanced questions using `window functions`, `CTEs`, or `subqueries`.
