@@ -1,0 +1,107 @@
+
+
+## 🔹 1. What is Normalization?
+
+**Normalization** is the process of organizing data in a database to:
+- Reduce redundancy (duplicate data)
+- Ensure data integrity
+- Improve efficiency in updates and queries
+
+It involves dividing large tables into smaller, related ones and defining relationships between them.
+
+---
+
+### 🔸 First Normal Form (1NF)
+**Rule:** Each column must contain atomic (indivisible) values, and each record must be unique.
+
+**Example:**
+❌ Not in 1NF:
+| StudentID | Name   | Courses         |
+|-----------|--------|-----------------|
+| 1         | Alice  | Math, Physics   |
+
+✅ In 1NF:
+| StudentID | Name   | Course   |
+|-----------|--------|----------|
+| 1         | Alice  | Math     |
+| 1         | Alice  | Physics  |
+
+---
+
+### 🔸 Second Normal Form (2NF)
+**Rule:** Must be in 1NF, and all non-key columns must depend on the **entire** primary key (no partial dependency).
+
+**Example:**
+❌ Not in 2NF (composite key: StudentID + CourseID):
+| StudentID | CourseID | StudentName |
+|-----------|----------|-------------|
+
+✅ In 2NF:
+- Student Table: (StudentID, StudentName)
+- Enrollment Table: (StudentID, CourseID)
+
+---
+
+### 🔸 Third Normal Form (3NF)
+**Rule:** Must be in 2NF, and no **transitive dependency** (non-key column depends on another non-key column).
+
+**Example:**
+❌ Not in 3NF:
+| EmpID | EmpName | DeptID | DeptName |
+|-------|---------|--------|----------|
+
+✅ In 3NF:
+- Employee Table: (EmpID, EmpName, DeptID)
+- Department Table: (DeptID, DeptName)
+
+---
+
+## 🔹 2. What is Denormalization?
+
+**Denormalization** is the process of combining tables to reduce joins and improve read performance — often used in reporting or analytics.
+
+**When to use:**
+- When read speed is more critical than write efficiency
+- In OLAP systems (data warehouses)
+- When joins become a performance bottleneck
+
+**Example:**
+Instead of joining `Orders`, `Customers`, and `Products`, you might store customer and product info directly in the `Orders` table for faster reporting.
+
+---
+
+## 🔹 3. Schema Design for E-Commerce or Social Media
+
+### 🛒 E-Commerce Schema (Simplified)
+- **Users**: UserID, Name, Email, Password
+- **Products**: ProductID, Name, Price, Stock
+- **Orders**: OrderID, UserID, OrderDate, TotalAmount
+- **OrderItems**: OrderItemID, OrderID, ProductID, Quantity, Price
+- **Payments**: PaymentID, OrderID, Amount, Status
+
+### 👥 Social Media Schema (Simplified)
+- **Users**: UserID, Name, Email, Password
+- **Posts**: PostID, UserID, Content, Timestamp
+- **Comments**: CommentID, PostID, UserID, Text, Timestamp
+- **Followers**: FollowerID, FolloweeID
+- **Likes**: LikeID, PostID, UserID
+
+Let me know if you want an ER diagram or SQL DDL for either.
+
+---
+
+## 🔹 4. Surrogate Key vs Natural Key
+
+| Feature           | Surrogate Key                         | Natural Key                          |
+|------------------|----------------------------------------|--------------------------------------|
+| Definition        | Artificial key (e.g., auto-increment) | Real-world attribute (e.g., Email)   |
+| Example           | `UserID = 101`                        | `Email = "santosh@example.com"`      |
+| Stability         | Never changes                         | Might change                         |
+| Simplicity        | Simple, numeric                       | Can be long or complex               |
+| Best for          | Internal joins, foreign keys          | Business logic, uniqueness checks    |
+
+**Interview Tip:** Prefer surrogate keys for internal use, and enforce uniqueness on natural keys with constraints.
+
+---
+
+Would you like to try a few interview-style questions on these topics or get flashcards to test your memory?
