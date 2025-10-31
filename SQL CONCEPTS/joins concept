@@ -1,0 +1,61 @@
+SQL JOINs allow combining data from two or more tables based on related columns, 
+making it possible to answer complex queries about relational data from beginner to advanced levels.​
+
+Beginner: What is a JOIN?
+A JOIN is a SQL operation that merges rows from two tables based on a common column, 
+typically a primary key in one table and a foreign key in the other. 
+This operation helps retrieve information scattered across multiple tables, producing a single unified result.​
+
+Core JOIN Types
+INNER JOIN: Returns only rows with matching values in both tables. This is the most common and retrieves intersecting records.​
+
+sql
+SELECT A.col1, B.col2
+FROM TableA A
+INNER JOIN TableB B ON A.shared_col = B.shared_col;
+LEFT (OUTER) JOIN: Returns all records from the left table and the matching records from the right table; 
+NULLs are shown when no match is found.​
+
+sql
+SELECT A.col1, B.col2
+FROM TableA A
+LEFT JOIN TableB B ON A.shared_col = B.shared_col;
+RIGHT (OUTER) JOIN: Returns all records from the right table and any matched from the left table, with NULLs for missing matches.​
+
+sql
+SELECT A.col1, B.col2
+FROM TableA A
+RIGHT JOIN TableB B ON A.shared_col = B.shared_col;
+FULL (OUTER) JOIN: Retrieves all rows with matches in either table; unmatched columns are returned as NULL.​
+
+sql
+SELECT A.col1, B.col2
+FROM TableA A
+FULL OUTER JOIN TableB B ON A.shared_col = B.shared_col;
+CROSS JOIN: Returns every combination of rows from the two tables (Cartesian product), rarely used except in special cases.​
+
+SELF JOIN: A table joined to itself to compare rows within the same table, commonly for hierarchical or relational data.​
+
+Professional: Advanced JOIN Techniques
+Non-Equi JOIN: Uses operators (<, >, <=, >=, <>) for complex row matching, for advanced custom joins.​
+
+sql
+SELECT A.col1, B.col2
+FROM TableA A
+INNER JOIN TableB B ON A.num_col >= B.num_col;
+Semi-Join: Returns rows from one table that have matches in another (usually using EXISTS or IN for subqueries).​
+
+sql
+SELECT col1 FROM A WHERE EXISTS (SELECT 1 FROM B WHERE B.shared_col = A.shared_col);
+Anti-Join: Retrieves rows from one table that do not have matches in another, often with NOT EXISTS.​
+
+Common Use Cases
+Connecting user profiles with login activities (INNER JOIN)
+
+Listing all employees, even those without department assignments (LEFT JOIN)
+
+Getting all departments, including those without employees (RIGHT JOIN)
+
+Combining results from multiple sources (FULL JOIN)
+
+Analyzing all combinations (CROSS JOIN), such as products and stores
