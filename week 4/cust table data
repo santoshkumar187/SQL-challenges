@@ -1,0 +1,62 @@
+
+## 🧾 Simple Banking SQL Practice
+
+### 1. **Create Tables**
+```sql
+CREATE TABLE Customers (
+  CustomerID INT,
+  Name VARCHAR(50)
+);
+
+CREATE TABLE Accounts (
+  AccountID INT,
+  CustomerID INT,
+  Balance INT
+);
+```
+
+---
+
+### 2. **Insert Sample Data**
+```sql
+INSERT INTO Customers VALUES (1, 'Amit'), (2, 'Priya');
+
+INSERT INTO Accounts VALUES (101, 1, 5000), (102, 2, 8000);
+```
+
+---
+
+### 3. **Show All Customers**
+```sql
+SELECT * FROM Customers;
+```
+
+---
+
+### 4. **Show All Accounts**
+```sql
+SELECT * FROM Accounts;
+```
+
+---
+
+### 5. **Join Customers with Accounts**
+```sql
+SELECT Customers.Name, Accounts.Balance
+FROM Customers
+JOIN Accounts ON Customers.CustomerID = Accounts.CustomerID;
+```
+
+---
+
+### 6. **Find Customers with Balance > 6000**
+```sql
+SELECT Customers.Name
+FROM Customers
+JOIN Accounts ON Customers.CustomerID = Accounts.CustomerID
+WHERE Accounts.Balance > 6000;
+```
+
+---
+
+Want me to add transactions or loan examples next? Or turn this into a mini project or quiz?
