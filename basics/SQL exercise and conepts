@@ -1,0 +1,28 @@
+
+### Basic SQL Exercises
+- Retrieve all data from a table: `SELECT * FROM table_name;`
+- Filter data using `WHERE` conditions.
+- Sort data using `ORDER BY`.
+- Use `INSERT INTO` to add records.
+- Update records with `UPDATE`.
+- Delete records using `DELETE`.
+  
+### Intermediate SQL Exercises
+- Use `JOIN` operations (INNER, LEFT, RIGHT, FULL) to combine data from multiple tables.
+- Apply aggregation functions like `COUNT()`, `SUM()`, `AVG()`, `MIN()`, `MAX()`.
+- Group data using `GROUP BY` and filter grouped results using `HAVING`.
+- Use subqueries inside `SELECT`, `FROM`, or `WHERE` clauses.
+
+### Advanced SQL Exercises
+- Write complex joins with multiple tables.
+- Use window functions like `ROW_NUMBER()`, `RANK()`, `LEAD()`, `LAG()`.
+- Implement Common Table Expressions (CTEs) with `WITH` clauses.
+- Use `UNION` and `INTERSECT` operators.
+- Write stored procedures and triggers.
+- Optimize queries for performance and indexing.
+  
+### Practice Resources
+- Online SQL exercise platforms like W3Schools SQL Exercises offer categorized questions with varying difficulty.
+- Platforms like LeetCode, CodeChef, and GeeksforGeeks provide SQL practice problems with solutions.
+- Following structured SQL study plans and tutorials that incrementally increase complexity.
+
