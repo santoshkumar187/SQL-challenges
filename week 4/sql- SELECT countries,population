@@ -1,0 +1,54 @@
+
+Show the name and population for France, Germany, Italy
+
+SELECT name, population 
+FROM world
+WHERE name IN ('France','Germany','Italy');
+
+
+Correct answer
+name	population
+France	65906000
+Germany	80716000
+Italy	60782668
+
+*************************************************
+
+
+Show the countries which have a name that includes the word 'United'
+
+SELECT name
+FROM world
+WHERE name LIKE '%United%';
+
+
+Correct answer
+name
+United Arab Emirates
+United Kingdom
+United States
+
+*****************************************************************
+
+
+Two ways to be big: A country is big if it has an area of more than 3 million sq km or it has a population of more than 250 million.
+
+Show the countries that are big by area or big by population. Show name, population and area.
+
+SELECT name, population, area
+FROM world
+WHERE area > 3000000 OR population > 250000000;
+
+Correct answer
+  
+name	population	area
+Australia	23545500	7692024
+Brazil	202794000	8515767
+Canada	35427524	9984670
+China	1365370000	9596961
+India	1246160000	3166414
+Indonesia	252164800	1904569
+Russia	146000000	17125242
+United States	318320000	9826675
+
+
