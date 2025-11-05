@@ -1,0 +1,29 @@
+SELECT * 
+FROM Employees
+WHERE DepartmentID IN (
+  SELECT DepartmentID 
+  FROM Departments 
+  WHERE Location = 'New York'
+);
+
+| emp_name |
+| -------- |
+| Alice    |
+| Carol    |
+| Dave     |
+
+
+SELECT emp_name, salary 
+FROM Employees 
+WHERE salary > (
+  SELECT AVG(salary) 
+  FROM Employees
+);
+
+
+| emp_id | emp_name | salary | DepartmentID |
+| ------ | -------- | ------ | ------------ |
+| 1      | Alice    | 70000  | 10           |
+| 2      | Bob      | 55000  | 20           |
+| 3      | Carol    | 80000  | 10           |
+| 4      | Dave     | 40000  | 30           |
