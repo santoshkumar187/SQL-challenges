@@ -1,0 +1,137 @@
+**Quick Answer:**  
+A *primary key* in SQL uniquely identifies each row in a table. 
+  Other related terms include *foreign key, unique, not null, check,* and *default constraints*. 
+  Together, these rules ensure data integrity and consistency in databases.
+
+---
+
+## 🔑 Primary Key
+- **Definition:** A column (or set of columns) that uniquely identifies each record in a table.  
+- **Rules:** Must be *unique* and *not null*. Only one primary key per table.  
+- **Example:**
+```sql
+CREATE TABLE Students (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT
+);
+```
+Here, `student_id` ensures no two students have the same ID.
+
+---
+
+## 📌 Other Important SQL Terms (Constraints)
+
+- **[NOT NULL](guide://action?prefill=Tell%20me%20more%20about%3A%20NOT%20NULL):** Ensures a column cannot have NULL values.  
+  ```sql
+  CREATE TABLE Employees (
+      emp_id INT PRIMARY KEY,
+      emp_name VARCHAR(50) NOT NULL
+  );
+  ```
+
+- **[UNIQUE](guide://action?prefill=Tell%20me%20more%20about%3A%20UNIQUE):** Guarantees all values in a column are different.  
+  ```sql
+  CREATE TABLE Users (
+      user_id INT PRIMARY KEY,
+      email VARCHAR(100) UNIQUE
+  );
+  ```
+
+- **[FOREIGN KEY](guide://action?prefill=Tell%20me%20more%20about%3A%20FOREIGN%20KEY):** Links one table to another, enforcing referential integrity.  
+  ```sql
+  CREATE TABLE Orders (
+      order_id INT PRIMARY KEY,
+      user_id INT,
+      FOREIGN KEY (user_id) REFERENCES Users(user_id)
+  );
+  ```
+
+- **[CHECK](guide://action?prefill=Tell%20me%20more%20about%3A%20CHECK):** Ensures values meet a condition.  
+  ```sql
+  CREATE TABLE Products (
+      product_id INT PRIMARY KEY,
+      price DECIMAL CHECK (price > 0)
+  );
+  ```
+
+- **[DEFAULT](guide://action?prefill=Tell%20me%20more%20about%3A%20DEFAULT):** Assigns a default value if none is provided.  
+  ```sql
+  CREATE TABLE Accounts (
+      account_id INT PRIMARY KEY,
+      balance DECIMAL DEFAULT 0
+  );
+  ```
+
+Perfect Santosh 👍 — now let’s apply the **copy table techniques** directly to the **Constraints table** you showed earlier.  
+
+---
+
+## 📋 Original Table (Constraints)
+```sql
+CREATE TABLE Constraints_Info (
+    constraint_name VARCHAR(50),
+    purpose VARCHAR(100),
+    example VARCHAR(200)
+);
+
+INSERT INTO Constraints_Info VALUES
+('Primary Key', 'Uniquely identifies each row', 'student_id INT PRIMARY KEY'),
+('Not Null', 'Prevents NULL values', 'emp_name VARCHAR(50) NOT NULL'),
+('Unique', 'Ensures distinct values', 'email VARCHAR(100) UNIQUE'),
+('Foreign Key', 'Links tables', 'FOREIGN KEY (user_id) REFERENCES Users(user_id)'),
+('Check', 'Validates conditions', 'price DECIMAL CHECK (price > 0)'),
+('Default', 'Sets default values', 'balance DECIMAL DEFAULT 0'),
+('Index', 'Speeds up queries', 'CREATE INDEX idx_name ON Students(name)');
+```
+
+---
+
+## 🔄 Copying This Table
+
+- **Copy structure only (no data):**
+```sql
+CREATE TABLE Constraints_Copy LIKE Constraints_Info;
+```
+
+- **Copy structure + all data:**
+```sql
+CREATE TABLE Constraints_Copy AS
+SELECT * FROM Constraints_Info;
+```
+
+- **Copy only data into existing table:**
+```sql
+INSERT INTO Constraints_Copy
+SELECT * FROM Constraints_Info;
+```
+
+- **Copy with condition (e.g., only constraints related to keys):**
+```sql
+CREATE TABLE Constraints_Copy AS
+SELECT * FROM Constraints_Info
+WHERE constraint_name IN ('Primary Key', 'Foreign Key', 'Unique');
+```
+
+- **Copy selected columns only (e.g., just names and examples):**
+```sql
+CREATE TABLE Constraints_Copy AS
+SELECT constraint_name, example FROM Constraints_Info;
+```
+
+---
+
+## 📝 Example Result (Copy with all data)
+
+| constraint_name | purpose                     | example                                      |
+|-----------------|-----------------------------|----------------------------------------------|
+| Primary Key     | Uniquely identifies each row| student_id INT PRIMARY KEY                   |
+| Not Null        | Prevents NULL values        | emp_name VARCHAR(50) NOT NULL                |
+| Unique          | Ensures distinct values     | email VARCHAR(100) UNIQUE                    |
+| Foreign Key     | Links tables                | FOREIGN KEY (user_id) REFERENCES Users(user_id) |
+| Check           | Validates conditions        | price DECIMAL CHECK (price > 0)              |
+| Default         | Sets default values         | balance DECIMAL DEFAULT 0                    |
+| Index           | Speeds up queries           | CREATE INDEX idx_name ON Students(name)      |
+
+
+
