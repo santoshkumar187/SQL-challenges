@@ -3,7 +3,7 @@ FROM Employees
 WHERE DepartmentID IN (
   SELECT DepartmentID 
   FROM Departments 
-  WHERE Location = 'New York'
+  WHERE Location = 'New York';
 );
 
 | emp_name |
